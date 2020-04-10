@@ -8,4 +8,4 @@
 # 🎨Chapter1. 미정
 ## Lecture1. 시작하기
 ### 1. 우수법(오른손 법칙)
-![](CShap_GameAlgorithm/Screenshots/right.gif)
+![](Screenshots/right.gif)
