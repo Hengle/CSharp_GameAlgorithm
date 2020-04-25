@@ -9,3 +9,6 @@
 ## Lecture1. 시작하기
 ### 1. 우수법(오른손 법칙)
 ![](Screenshots/right.gif)
+
+### 2. BFS
+![](Screenshots/BFS.gif)

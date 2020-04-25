@@ -20,8 +20,17 @@ namespace AlgorithmCshap
 
             int lastTick = 0;
             int deltaTick = 0;
+
+            ConsoleKeyInfo keys = Console.ReadKey(true); //키보드 입력 활성화
+            bool startFlag = false;
             while (true)
             {
+                if(startFlag==false)
+                    if (keys.Key == ConsoleKey.S)
+                    {
+                        startFlag = true;
+                    }
+
                 #region 프레임 관리
                 // 경과시간이 1/30보다 작으면 
                 int currentTick = System.Environment.TickCount;
