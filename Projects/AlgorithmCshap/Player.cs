@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 /*
  * 시작전 설계 아이디어 :
  * Board와 Player와의 연결이 필요함.
- * 
  */
 namespace AlgorithmCshap
 {
@@ -157,7 +156,6 @@ namespace AlgorithmCshap
             }
         }
         
-
         const int MOVE_TICK = 50; // 100 ms (0.1초)
         int _sumTick = 0;
 

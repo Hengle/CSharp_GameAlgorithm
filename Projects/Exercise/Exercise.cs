@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace Exercise
 {
+    #region Priority Queue(heap)
+
     class PriorityQueue<T> where T : IComparable<T> // T이긴한데, 반드시 IComparable 이라는 인터페이스를 제공해야한다.
     {
-        List<T> _heap = new List<T>();
+        List<T> _heap = new List<T>(); //동적배열 형태로 데이터 소지
 
         public void Push(T data)
         {
@@ -17,7 +19,7 @@ namespace Exercise
             // 도장깨기 시작 logN (밑2)
             while (now > 0)
             {
-                int next = (now - 1) / 2; // 부모 인덱스
+                int next = (now - 1) / 2; // 자신의 부모 인덱스
                 if (_heap[now].CompareTo(_heap[next]) < 0)
                     break;
 
@@ -67,8 +69,6 @@ namespace Exercise
 
                 now = next;
             }
-
-
             return ret;
         }
 
@@ -76,7 +76,6 @@ namespace Exercise
         {
             return _heap.Count;
         }
-
     }
 
     class Knight : IComparable<Knight>
@@ -91,13 +90,13 @@ namespace Exercise
         }
     }
 
+    #endregion
 
     class TreeNode<T>
     {
         public T Data { get; set; }
         public List<TreeNode<T>> Children { get; set; } = new List<TreeNode<T>>();
     }
-
 
     class Graph
     {
@@ -135,6 +134,10 @@ namespace Exercise
         };
 
         #region DFS(깊이 우선 탐색)
+
+        /*
+         * 우수법에서 더 좋은 방법을 구안해낸 방법
+         */
 
         bool[] visited = new bool[6];
 
@@ -188,10 +191,11 @@ namespace Exercise
 
         public void BFS(int start)
         {
-            bool[] found = new bool[6]; //false 자동초기화
-            int[] parent = new int[6];
-            int[] distance = new int[6];
+            bool[] found = new bool[6]; // false 자동초기화
+            int[] parent = new int[6]; // 이전 경로를 기록
+            int[] distance = new int[6]; // 몇번만에 갔는지를 기록
 
+            // 예약 큐를 만듦
             Queue<int> q = new Queue<int>();
             q.Enqueue(start);
             found[start] = true;
@@ -227,38 +231,49 @@ namespace Exercise
 
         public void Dijikstra(int start)
         {
-            bool[] visited = new bool[6];
-            int[] distance = new int[6]; // 자동 0 초기화\
-            int[] parent = new int[6]; // 경로변수
+            // 찾았냐가 중요한게 아니라, 최종적으로 방문했는지가 중요하다.
+            bool[] visited = new bool[6]; // 방문기록(기본 false 초기화)
+            int[] distance = new int[6]; // 거리값 기록, 발견 여부도 동시에 판별 예정
+            int[] parent = new int[6]; // 이전 경로 기록 
 
+            // 가장 큰 int형 변수를 넣음(21억), 이유는 실제 길이가 0인지 아니면 초기화값으로 인해 0인지 구분이 안되기 때문. 아무숫자나 상관없음
             for (int i = 0; i < distance.Length; ++i)
-                distance[i] = Int32.MaxValue;
+                distance[i] = Int32.MaxValue; //Int32 최고값을 넣어줌.
 
-            distance[start] = 0; // 시작부분에 0을 넣음
-            parent[start] = start;
+            // 초기화
+            distance[start] = 0; // 시작 지점의 거리값은 0으로 지정, 발견 여부도 동시에 알수 있음
+            parent[start] = start; // 시작지점의 이전 경로는 '본인'으로 기록
+
+            // ※다익스트라는 예약 큐가 없다.
 
             while (true)
             {
-                // 제일 좋은 후보를 찾는다 (가장 가까이에 있는)
+                #region ★많이쓰는 패턴, 어떤 배열중 가장 큰 값을 찾기 위할때★
+                
+                // 가장 가까이에 있는 제일 좋은 후보를 찾는다.
 
-                int closest = Int32.MaxValue;
-                int now = -1;
+                // 가장 유력한 후보의 거리와 번호를 저장
+                int closest = Int32.MaxValue; // 거리 비교 변수
+                int now = -1; // 
 
-                // 거의 2중 for문 수준으로 비효율적임 -> 우선순위큐로 해결가능
+                /// ※ 거의 2중 for문 수준으로 비효율적임, 1만개가 넘어가면 for문도 1만개 조사해야함 -> 우선순위큐로 해결가능
                 for (int i = 0; i < 6; ++i)
                 {
-                    // 이미 방문한 정점은 스킵.
+                    /// 후보에서 걸러지는 것들
+                    // 1.이미 방문한 정점은 스킵.
                     if (visited[i])
                         continue;
-                    // 아직 발견된 적이 없거나, 기존 후보보다 멀리 있으면 스킵
+                    // 2.아직 발견된 적이 없거나, 3.발견은 했지만 기존 후보보다 멀리 있으면 스킵
                     if (distance[i] == Int32.MaxValue || distance[i] >= closest)
                         continue;
+
                     // 여태껏 발견한 가장 좋은 후보이므로 갱신
                     closest = distance[i];
                     now = i;
                 }
+                #endregion
 
-                // 다음 후보가 하나도 없다 -> 종료
+                // 만약 다음 후보가 하나도 없다 -> 종료 (모든 경로를 갔거나, 선이 단절되어 더이상 갈곳이 없다는 의미)
                 if (now == -1)
                     break;
 
@@ -271,7 +286,7 @@ namespace Exercise
                     // 연결되지 않은 정점 스킵
                     if (adj3[now, next] == -1)
                         continue;
-                    //이미 방문한 정점은 스킵
+                    // 이미 방문한 정점은 스킵
                     if (visited[next])
                         continue;
 
@@ -284,19 +299,17 @@ namespace Exercise
                         distance[next] = nextDist; // 새롭게 갱신
                         parent[next] = now; // next는 now로 출발한 경로이다
                     }
-
-
                 }
             }
         }
-
         #endregion
 
     }
 
-
-    class Program
+    class Exercise
     {
+        #region 트리관련 기본 함수
+
         static TreeNode<string> MakeTree()
         {
             TreeNode<string> root = new TreeNode<string>() { Data = "R1 개발실" };
@@ -356,12 +369,14 @@ namespace Exercise
             return height;
         }
 
+        #endregion
+
         static void Main(string[] args)
         {
             //Stack<int> stack = new Stack<int>();
             //Queue<int> queue = new Queue<int>();
 
-            //Graph graph = new Graph();
+            Graph graph = new Graph();
 
             /// DFS (Depth First Search 깊이 우선 탐색)
             /// 용도 : 다양함
@@ -372,7 +387,7 @@ namespace Exercise
             //graph.BFS(0);
 
             /// Dijikstra 
-            //graph.Dijikstra(0);
+            graph.Dijikstra(3);
 
             /// Tree
             //TreeNode<string> root = MakeTree();
@@ -386,6 +401,13 @@ namespace Exercise
             q.Push(90);
             q.Push(40);
 
+            /*
+             *  ※ 만약에 최소값 형태의 우선순위 큐를 구현하고 싶을때, 
+             *  꼼수중 하나는 값을 넣을때 음수(-1을 곱한형태)로 넣으면 그대로 사용 가능.
+             */
+            while (q.Count() > 0)
+                Console.WriteLine(q.Pop());
+
             PriorityQueue<Knight> q2 = new PriorityQueue<Knight>();
             q2.Push(new Knight() { Id = 20 });
             q2.Push(new Knight() { Id = 30 });
@@ -393,21 +415,10 @@ namespace Exercise
             q2.Push(new Knight() { Id = 10 });
             q2.Push(new Knight() { Id = 5 });
 
-            /*
-             *  ※ 만약에 최소값 형태의 우선순위 큐를 구현하고 싶을때, 꼼수중 하나는 값을 넣을때 음수(-1을 곱한형태)로 넣으면 그대로 사용 가능.
-             *  
-             */
-            while (q.Count() > 0)
-            {
-                Console.WriteLine(q.Pop());
-            }
-
             Console.WriteLine();
 
             while (q2.Count() > 0)
-            {
                 Console.WriteLine(q2.Pop().Id);
-            }
 
         }
     }
