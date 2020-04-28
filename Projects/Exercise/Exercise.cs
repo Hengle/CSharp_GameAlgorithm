@@ -100,7 +100,7 @@ namespace Exercise
 
     class Graph
     {
-        // 1. adj 2차원 배열을 이용하는 방법(속도)
+        // 1. 인접 행렬 이용
         int[,] adj = new int[6, 6]
         {
             {0,1,0,1,0,0 },
@@ -111,7 +111,7 @@ namespace Exercise
             {0,0,0,0,1,0 },
         };
 
-        // 2. 리스트 배열을 이용
+        // 2. 인접 리스트 이용
         List<int>[] adj2 = new List<int>[]
         {
             new List<int>() {1,3 },
@@ -141,7 +141,7 @@ namespace Exercise
 
         bool[] visited = new bool[6];
 
-        // 이차원 배열을 이용한 방식
+        // 인접 행렬을 사용할때
         // 1) 우선 시작부터 방문하고
         // 2) 시작지점과 연결된 정점들을 하나씩 확인해서, [아직 미발견(미방문) 상태라면] 방문한다.
         public void DFS(int now)
@@ -162,7 +162,7 @@ namespace Exercise
             }
         }
 
-        // 동적배열을 이용한 방식
+        // 인접 리스트를 이용한 방식
         public void DFS2(int now)
         {
             Console.WriteLine(now);
