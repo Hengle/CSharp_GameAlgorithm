@@ -1,4 +1,4 @@
-# 🚀CShap_GameAlgorithm
+# 🚀CSharp_GameAlgorithm
 - C#으로 만드는 게임 알고리즘 & 자료구조
 
 ## ☑ TODO
