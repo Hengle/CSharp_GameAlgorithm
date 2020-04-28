@@ -1,4 +1,4 @@
-# 🚀CShap_GameAlgorithm
+# 🚀CSharp_GameAlgorithm
 - C#으로 만드는 게임 알고리즘 & 자료구조
 
 ## ☑ TODO
@@ -12,6 +12,9 @@
 
 ### 2. BFS
 ![](Screenshots/BFS.gif)
+<<<<<<< HEAD
 
 ### 3. A*
 ![](Screenshots/Astar.gif)
+=======
+>>>>>>> b400d732fba4a3f3b161094a0b463e87b8efffde
