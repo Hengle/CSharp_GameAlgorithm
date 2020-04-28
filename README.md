@@ -12,9 +12,7 @@
 
 ### 2. BFS
 ![](Screenshots/BFS.gif)
-<<<<<<< HEAD
 
 ### 3. A*
 ![](Screenshots/Astar.gif)
-=======
->>>>>>> b400d732fba4a3f3b161094a0b463e87b8efffde
+
