@@ -25,8 +25,8 @@
 - [x] 강의 1회
 - [ ] 복습 1회
 
-# 🎨Chapter1. 미정
-## 결과물 gif
+　
+# 🎨 결과물 gif
 ### 1. 우수법(오른손 법칙)
 ![](Screenshots/right.gif)
 
