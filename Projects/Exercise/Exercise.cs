@@ -103,23 +103,23 @@ namespace Exercise
         // 1. 인접 행렬 이용
         int[,] adj = new int[6, 6]
         {
-            {0,1,0,1,0,0 },
-            {1,0,1,1,0,0 },
-            {0,1,0,0,0,0 },
-            {1,1,0,0,1,0 },
-            {0,0,0,1,0,1 },
-            {0,0,0,0,1,0 },
+            { 0, 1, 0, 1, 0, 0 },
+            { 1, 0, 1, 1, 0, 0 },
+            { 0, 1, 0, 0, 0, 0 },
+            { 1, 1, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0, 1 },
+            { 0, 0, 0, 0, 1, 0 },
         };
 
         // 2. 인접 리스트 이용
         List<int>[] adj2 = new List<int>[]
         {
-            new List<int>() {1,3 },
-            new List<int>() {0,2,3 },
-            new List<int>() {1 },
-            new List<int>() {0,1,4 },
-            new List<int>() {3,5 },
-            new List<int>() {4 },
+            new List<int>() { 1, 3 },
+            new List<int>() { 0, 2, 3 },
+            new List<int>() { 1 },
+            new List<int>() { 0, 1, 4 },
+            new List<int>() { 3, 5 },
+            new List<int>() { 4 },
         };
 
         // 3. 가중치 그래프일때
@@ -188,7 +188,7 @@ namespace Exercise
         #endregion
 
         #region BFS(너비 우선 탐색)
-
+        // 인접행렬 방식으로 구현
         public void BFS(int start)
         {
             bool[] found = new bool[6]; // false 자동초기화
@@ -230,7 +230,7 @@ namespace Exercise
         #region Dijikstra(가중치 최단경로)
 
         public void Dijikstra(int start)
-        {
+        { 
             // 찾았냐가 중요한게 아니라, 최종적으로 방문했는지가 중요하다.
             bool[] visited = new bool[6]; // 방문기록(기본 false 초기화)
             int[] distance = new int[6]; // 거리값 기록, 발견 여부도 동시에 판별 예정
@@ -245,7 +245,6 @@ namespace Exercise
             parent[start] = start; // 시작지점의 이전 경로는 '본인'으로 기록
 
             // ※다익스트라는 예약 큐가 없다.
-
             while (true)
             {
                 #region ★많이쓰는 패턴, 어떤 배열중 가장 큰 값을 찾기 위할때★
