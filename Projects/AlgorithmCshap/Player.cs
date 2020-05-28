@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 /*
- * 시작전 설계 아이디어 :
+ * 시작전 설계 아이디어
  * Board와 Player와의 연결이 필요함.
  */
 namespace AlgorithmCshap
@@ -75,9 +75,9 @@ namespace AlgorithmCshap
         void AStar()
         {
             // 상하좌우 이동가능성 판별 여부에 사용하는 변수 (U L D R)
-            int[] deltaY = new int[] { -1, 0, 1, 0};
-            int[] deltaX = new int[] { 0, -1, 0, 1};
-            int[] cost = new int[] { 1, 1, 1, 1};
+            int[] deltaY = new int[] { -1, 0, 1, 0 };
+            int[] deltaX = new int[] { 0, -1, 0, 1 };
+            int[] cost = new int[] { 1, 1, 1, 1 };
 
             // 대각선을 넣을수도 있다 A*는 (U L D R, UL DL DR UR)
             //int[] deltaY = new int[] { -1, 0, 1, 0, -1, 1, 1, -1 };
@@ -113,9 +113,9 @@ namespace AlgorithmCshap
             // 시작점 발견 (예약 출발) F = G + H
             open[PosY, PosX] = 0 + (Math.Abs(_board.DestY - PosY) + Math.Abs(_board.DestX - PosX));
             pq.Push(new PQNode() { F = (Math.Abs(_board.DestY - PosY) + Math.Abs(_board.DestX - PosX)), G = 0, Y = PosY, X = PosX });
-            parent[PosY, PosX] = new Pos(PosY,PosX);
+            parent[PosY, PosX] = new Pos(PosY, PosX);
 
-            while(pq.Count>0)
+            while (pq.Count > 0)
             {
                 // 제일 좋은 후보를 찾는다.
                 PQNode node = pq.Pop();
@@ -131,7 +131,7 @@ namespace AlgorithmCshap
                     break;
 
                 // 상하좌우 등 이동할 수 있는 좌표인지 확인해서 예약(open)한다.
-                for(int i=0;i<deltaY.Length;++i)
+                for (int i = 0; i < deltaY.Length; ++i)
                 {
                     // 다음 좌표계산
                     int nextY = node.Y + deltaY[i];
@@ -190,8 +190,8 @@ namespace AlgorithmCshap
 
         void BFS()
         {
-            int[] deltaY = new int[] {-1,0,1,0 };
-            int[] deltaX = new int[] {0,-1,0,1 };
+            int[] deltaY = new int[] { -1, 0, 1, 0 };
+            int[] deltaX = new int[] { 0, -1, 0, 1 };
 
 
             bool[,] found = new bool[_board.Size, _board.Size];
@@ -202,20 +202,20 @@ namespace AlgorithmCshap
             found[PosY, PosX] = true;
             parent[PosY, PosX] = new Pos(PosY, PosX);
 
-            while(q.Count>0)
+            while (q.Count > 0)
             {
                 Pos pos = q.Dequeue();
                 int nowY = pos.Y;
                 int nowX = pos.X;
 
                 // 4방향 모두 검사
-                for(int i=0; i<4;++i)
+                for (int i = 0; i < 4; ++i)
                 {
                     int nextY = nowY + deltaY[i];
                     int nextX = nowX + deltaX[i];
 
                     // 경로 벗어나면 넘기기
-                    if (nextX < 0 || nextX >= _board.Size || nextY<0|| nextY>= _board.Size)
+                    if (nextX < 0 || nextX >= _board.Size || nextY < 0 || nextY >= _board.Size)
                         continue;
                     // 다음 경로가 벽이면 넘어가기
                     if (_board.Tile[nextY, nextX] == Board.TileType.Wall)
@@ -274,7 +274,7 @@ namespace AlgorithmCshap
                 }
             }
         }
-        
+
         const int MOVE_TICK = 40; // 100 ms (0.1초)
         int _sumTick = 0;
         int _lastIndex = 0;
